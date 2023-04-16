@@ -1,1 +1,1 @@
-CHAT_GPT_API_KEY = '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'
+CHAT_GPT_API_KEY = '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'
