@@ -23,6 +23,7 @@ TODO
     - [ ] Scoring the questions inside a confidence interval.
     - [ ] Answering the questions with a customizable degree of variance.
 - [ ] Conversation actions with confirmation.
+- [ ] Multithreading support.
 - [ ] Tracking token-usage across API calls.
 - [ ] Developer Interface and Documentation.
 
