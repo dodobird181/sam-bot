@@ -1,4 +1,6 @@
 # SAM-Bot
+<img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1110&q=80" height=200>
+
 A Python chat-bot interface built on-top of Chat-GPT's API that produces _truthful_ answers to a pre-determined set of questions, engages in general conversation, and performs arbitrary actions based on conversation outcomes.
 
 ## Demo
