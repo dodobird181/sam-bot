@@ -1,1 +1,31 @@
-TODO :0
+# SAM-Bot
+A Python chat-bot interface built on-top of Chat-GPT's API that produces _truthful_ answers to a pre-determined set of questions, engages in general conversation, and performs arbitrary actions based on conversation outcomes.
+
+## Demo
+TODO
+
+## Usage
+TODO
+
+## Installation
+TODO
+
+## Roadmap
+- [ ] Generic conversation between a user and Chat-GPT.
+    - [x] Generic Chat-GPT API queries.
+    - [x] Tracking chat-history during runtime.
+    - [x] Making Chat-GPT not say crazy sh*t.
+    - [ ] Developer interface.
+- [ ] Truthful answers to pre-determined questions.
+    - [x] Mapping user-inputs onto a set of questions.
+    - [ ] Scoring the questions inside a confidence interval.
+    - [ ] Answering the questions with a customizable degree of variance.
+- [ ] Conversation actions with confirmation.
+- [ ] Tracking token-usage across API calls.
+- [ ] Developer Interface and Documentation.
+
+## License
+This project is distributed under the [MIT License](https://github.com/dodobird181/sam-bot/blob/main/LICENSE.txt).
+
+## Acknowledgements
+I am grateful to [Dina Shoham](https://github.com/dina-shoham) for setting me off in the right direction early-on in the project.
