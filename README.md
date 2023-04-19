@@ -20,8 +20,9 @@ TODO
     - [ ] Developer interface.
 - [ ] Truthful answers to pre-determined questions.
     - [x] Mapping user-inputs onto a set of questions.
-    - [ ] Scoring the questions inside a confidence interval.
-    - [ ] Answering the questions with a customizable degree of variance.
+    - [x] Scoring the questions inside a confidence interval.
+    - [x] Answering the questions with a customizable degree of variance.
+    - [ ] Accurate question-mapping with a large set of quesitons.
 - [ ] Conversation actions with confirmation.
 - [ ] Multithreading support.
 - [ ] Tracking token-usage across API calls.
