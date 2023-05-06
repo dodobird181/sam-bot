@@ -1,10 +1,9 @@
 from typing import List
 
 import openai
-from exceptions import RequestFailed
 
 
-class EmbeddingFailed(RequestFailed):
+class EmbeddingFailed(Exception):
     """
     Embedding request failed.
     """

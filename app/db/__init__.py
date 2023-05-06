@@ -1,1 +1,1 @@
-from db.core import ObjectBase, ObjectCollection
+from db.core import ObjectBase, ObjectCollection, init_db

@@ -1,2 +1,5 @@
-OPEN_AI_API_KEY = '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'
-INDEX_PATH = 'data/indices'
+import logging
+
+OPEN_AI_API_KEY = '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'
+ROOT_DB_PATH = 'database/'
+CONSOLE_LOGGING_LEVEL = logging.DEBUG

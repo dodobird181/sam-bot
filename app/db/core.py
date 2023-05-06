@@ -4,17 +4,28 @@ import json
 import sys
 import uuid
 from abc import ABC, abstractclassmethod, abstractmethod
-from typing import Any, Dict
+from typing import Any, Dict, List
+
+import settings
+from applogging import logger
+
+
+class DatabaseNotInitializedError(Exception):
+    """
+    The database wansn't initialized before being used. Please
+    initialize it by calling `init_db_at` before calling `load` and `save` methods.
+    """
 
 
 class ObjectBase(ABC):
 
-    def __init__(self, child_class):
-        import_class(child_class)
+    _IS_DB_INITIALIZED = False
+
+    def __init__(self):
         self.id = str(uuid.uuid4())
 
     def __str__(self):
-        id_dict = {'id': self.id[:4] + '...'}
+        id_dict = {'id': self.id[:4] + '..'}
         classname = self.__class__.__name__
         return f'[{classname} - {str(id_dict|self.to_dict())}]'
 
@@ -54,16 +65,23 @@ class ObjectBase(ABC):
         """
         Saves the object data in JSON format to the given filepath.
         """
-        write_dict_to_json_file(path, self._to_dict_with_id())
+        logger().debug(f'Saving file: {path}..')
+        if self._IS_DB_INITIALIZED:
+            write_dict_to_json_file(path, self._to_dict_with_id())
+            return None
+        raise DatabaseNotInitializedError
     
     @classmethod
     def load(cls, path: str) -> ObjectBase:
         """
         Load an instance of the object from the given filepath.
         """
-        dict = read_dict_from_json_file(path)
-        obj = cls._from_dict_with_id(dict)
-        return obj
+        logger().debug(f'Loading file: {path}..')
+        if cls._IS_DB_INITIALIZED:
+            dict = read_dict_from_json_file(path)
+            obj = cls._from_dict_with_id(dict)
+            return obj
+        raise DatabaseNotInitializedError
     
 
 class ObjectCollection(ObjectBase):
@@ -71,7 +89,7 @@ class ObjectCollection(ObjectBase):
     A collection of database objects.
     """
     def __init__(self, object_class, *objects: ObjectBase):
-        super().__init__(ObjectCollection)
+        super().__init__()
         self.object_class = object_class.__name__
         self.objects = {str(obj.id): obj for obj in objects}
         self.size = len(self.objects)
@@ -129,6 +147,25 @@ class ObjectCollection(ObjectBase):
         """
         self.objects.pop(id)
         return self
+    
+    def get(self, id: str) -> ObjectBase:
+        """
+        Get an element by id from the collection.
+        """
+        return self.objects.get(id)
+    
+    def get_first(self) -> ObjectBase:
+        """
+        Get the first element in the collection.
+        """
+        for key in self.objects.keys():
+            return self.objects[key]
+        
+    def as_list(self) -> List[ObjectBase]:
+        """
+        Get all elements in the collection as a list.
+        """
+        return list(self.objects.values())
 
 
 def get_json_path(path: str) -> str:
@@ -138,14 +175,28 @@ def get_json_path(path: str) -> str:
 
 
 def write_dict_to_json_file(path: str, dict: Dict[str, Any]) -> None:
-    with open(get_json_path(path), 'w') as file:
+    with open(get_json_path(settings.ROOT_DB_PATH + path), 'w') as file:
         file.write(json.dumps(dict, indent=4))
 
 
 def read_dict_from_json_file(path: str) -> Dict[str, Any]:
-    with open(get_json_path(path), 'r') as file:
+    with open(get_json_path(settings.ROOT_DB_PATH + path), 'r') as file:
         return dict(json.load(file))
+
 
 def import_class(cls):
     __import__(cls.__module__, globals(), locals(), [cls.__name__,])
     globals().update({cls.__name__: getattr(sys.modules[cls.__module__], cls.__name__)})
+
+
+def init_db() -> None:
+    """
+    Initialize the database at the given root directory. All database paths
+    are interpreted as relative to the root directory passed in here.
+    """
+    logger().debug(f'Initializing database at: "{settings.ROOT_DB_PATH}"..')
+    ObjectBase._IS_DB_INITIALIZED = True
+    for cls in ObjectBase.__subclasses__():
+        logger().debug(f'Importing class: {cls.__name__}')
+        import_class(cls)
+    logger().debug('Finished initializing the database!')

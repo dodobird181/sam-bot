@@ -1,1 +1,0 @@
-CHAT_GPT_API_KEY = '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'
