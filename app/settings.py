@@ -1,5 +1,0 @@
-import logging
-
-OPEN_AI_API_KEY = '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'
-ROOT_DB_PATH = 'database/'
-CONSOLE_LOGGING_LEVEL = logging.DEBUG
