@@ -28,8 +28,8 @@ TODO
 - [ ] Tracking token-usage across API calls.
 - [ ] Developer Interface and Documentation.
 
-## License
-This project is distributed under the [MIT License](https://github.com/dodobird181/sam-bot/blob/main/LICENSE.txt).
-
 ## Acknowledgements
 I am grateful to [Dina Shoham](https://github.com/dina-shoham) for setting me off in the right direction early-on in the project, and [Avery Suzuki](https://averysuzuki.com/biography%2Fcv) for the his help with GPT prompt engineering.
+
+## License
+This project is distributed under the [MIT License](https://github.com/dodobird181/sam-bot/blob/main/LICENSE.txt).
